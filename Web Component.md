@@ -1,10 +1,8 @@
 # WEB Component
 
----
+<br />
 
 ## WHO Web Components?
-
----
 
 WEB Component는 기능별로 재사용 가능한 코드 블록을 캡슐화하여 커스텀 엘리먼트를 생성하고 웹, 앱에서 활용할 수 있도록 해주는 다양한 기술들의 모음이라고 MDN에서 정의하고 있습니다. MDN 정의를 읽으면서 React에서 사용하는 Component 개념이 떠올랐다. 매우 비슷한 개념이지만 Web Component와 React Component는 부분 집합 관계로 이루어져 있습니다. WEB Component 개념에 React Component 개념이 포함되어 있습니다.
 
@@ -64,8 +62,6 @@ _이러한 한계로 인해 Web Component라는 개념이 탄생하게 되었습
 _구글의 #UseThePlatform 키워드는 프레임워크로 무거운 앱을 만들지 말고 만드려는 기능을 표준대로 코딩하자는 의미를 내포하고 있는거 같습니다. 이러한 상황을 보면서 구글의 영향력이 개발자들 한테 매우 큰 바람을 일으키는거 같다는 느낌도 받게 되었습니다!!_
 
 ## Web Component 표준
-
----
 
 ### Custom Elements
 
@@ -247,8 +243,6 @@ document.body
 
 ## 글을 마치며...
 
----
-
 글을 마치기 전에 작성하지 않은 부분에 대해서 말씀드리겠습니다. W3C 표준 명세에서는 Web Component 스팩으로 3가지가 아닌 4가지가 공표하고 있습니다. HTML Import라는 하나의 표준이 더 존재하지만 제가 포스터에서 작성하지 않은 이유가 있습니다.
 
 1. Firefox에서 현재 HTML Import를 지원하지 않고 있으며 다른 브라우저들도 구현에 나서지 않고 있기 때문입니다.
@@ -263,8 +257,6 @@ document.body
 또한 현재 대부분의 개발은 React를 사용하고 있으며 React의 Virtual DOM 개념에 대해서 모호하게 알고 있다고 생각하고 있었습니다. 이번 Web Component 블로그를 작성하면서 React Component 및 Virtual DOM이 어떻게 만들어 지고 있는지에 대해서 생각을 정리할 수 있는 시간이었습니다.
 
 ## 참고 자료
-
----
 
 [Web Components: Keep calm and UseThePlatform](https://ui.toast.com/weekly-pick/ko_20170428)
 

@@ -61,6 +61,8 @@ _이러한 한계로 인해 Web Component라는 개념이 탄생하게 되었습
 
 _구글의 #UseThePlatform 키워드는 프레임워크로 무거운 앱을 만들지 말고 만드려는 기능을 표준대로 코딩하자는 의미를 내포하고 있는거 같습니다. 이러한 상황을 보면서 구글의 영향력이 개발자들 한테 매우 큰 바람을 일으키는거 같다는 느낌도 받게 되었습니다!!_
 
+<br />
+
 ## Web Component 표준
 
 ### Custom Elements
@@ -241,6 +243,8 @@ document.body
 
 **Template Element와 Custom Elements를 컴포넌트로 구성하려면 HTML, JS 두 개의 파일이 필요하다는 단점으로 인해 현재 Template Element이 Web Component에서의 영향력이 떨어지고 있는 상태입니다.**
 
+<br />
+
 ## 글을 마치며...
 
 글을 마치기 전에 작성하지 않은 부분에 대해서 말씀드리겠습니다. W3C 표준 명세에서는 Web Component 스팩으로 3가지가 아닌 4가지가 공표하고 있습니다. HTML Import라는 하나의 표준이 더 존재하지만 제가 포스터에서 작성하지 않은 이유가 있습니다.
@@ -255,6 +259,8 @@ document.body
 현재 Web Component는 여러 충돌이 있었지만 빠르게 발전하고 있으며 Google에서는 polymer라는 라이브러리도 발표하며 많은 사람들에게 영향을 주고 있습니다. 10년 후에는 React, Vue, Angular 등의 프레임워크(라이브러리)를 사용하지 않으며, 순수 JS로 코딩이 하는 날이 오지 않을까 하는 저의 생각이 반영되어 블로그를 작성하게 되었습니다. (미리미리 준비하는 자세!!)
 
 또한 현재 대부분의 개발은 React를 사용하고 있으며 React의 Virtual DOM 개념에 대해서 모호하게 알고 있다고 생각하고 있었습니다. 이번 Web Component 블로그를 작성하면서 React Component 및 Virtual DOM이 어떻게 만들어 지고 있는지에 대해서 생각을 정리할 수 있는 시간이었습니다.
+
+<br />
 
 ## 참고 자료
 

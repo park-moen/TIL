@@ -243,6 +243,58 @@ function App() {
 
 <br />
 
+**캐싱 지원**
+
+`selector` 를 통해 비동기통신시 가장 큰 장점중 하나로 **자체적으로 캐싱을 지원**하기 때문에 같은 입력값에 있어서 이전에 캐싱된 결과를 바로 보여주기 때문에 퍼포먼스 면에서도 훨씬 유리한 장점이 존재합니다.
+
+```js
+import { atom, selector } from 'recoil';
+
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+export const delayCountState = atom({
+  key: 'delayCountState',
+  default: 0,
+});
+
+export const delay1SecSelector = selector({
+  key: 'delay1SecSelector',
+  get: async ({ get }) => {
+    const result = `delayCountState 는 ${get(delayCountState)} 입니다.`;
+    await delay(1000);
+    return result;
+  },
+});
+```
+
+```js
+function App() {
+  const delay1Sec = useRecoilValueLoadable(delay1SecSelector);
+  const [delayCount, setDelayCountState] = useRecoilState(delayCountState);
+
+  console.log(delay1Sec);
+
+  if (delay1Sec.state === 'loading') {
+    return <div>로딩중...</div>;
+  }
+
+  return (
+    <>
+      <h3>캐싱된 selector 값</h3>
+      <p>{delay1Sec.contents}</p>
+      <button onClick={() => setDelayCountState(delayCount + 1)}>
+        캐싱 카운트 업
+      </button>
+      <button onClick={() => setDelayCountState(delayCount - 1)}>
+        캐싱 카운트 다운
+      </button>
+    </>
+  );
+}
+```
+
+<br />
+
 ## Recoil hooks
 
 Atom과 Selector는 같은 인터페이스를 사용하여 상태를 조작할 수 있습니다. 이 부분은 Recoil의 강력한 장점이며 다른 상태 관리 라이브러리와 다르게 학습 곡선이 현저히 줄어 든다.
@@ -260,3 +312,5 @@ Atom과 Selector는 같은 인터페이스를 사용하여 상태를 조작할 �
 [Recoil: 왕위를 계승하는 중입니다.](https://tv.naver.com/v/16970954?query=recoil&plClips=false:13490032:8077670:16970954:11558549:8077684:9483934:1102373:11595559:14078044:17581524:10035168:9484040:17173520:1100716:1089270:2912088:13927532:1102379:1159915:14253567)
 
 [Recoil - 또 다른 React 상태 관리 라이브러리?](https://ui.toast.com/weekly-pick/ko_20200616)
+
+[react의 새로운 상태관리 라이브러리 recoil 에 대해 알아보기](https://blog.woolta.com/categories/1/posts/209)

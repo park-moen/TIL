@@ -106,6 +106,10 @@ module: {
 - `css-loader` : css 파일을 자바스크립트로 변환하는 로더
 - `style-loader` : css-loader를 통해 자바스크립트로 변환된 스타일시트를 동적으로 돔에 추가하는 로더
 
+위 설정에서는 `test` 와 `use` 라는 두 가지 필수 속성을 가진 하나의 모듈을 위해 `rules` 속성을 정의했습니다. webpack의 컴파일러가 이해하는 방식을 예로 들어 보겠습니다.
+
+> "webpack 컴파일러야 `require()` / `import` 문 내에서 '.css' 파일로 확인되는 경로를 발경하면 번들러에 추가하기 전에 `style-loader`, `css-loader` 를 사용하여 변환해 주렴"
+
 **handlebars-loader**
 
 js 파일, css 파일처럼 html 파일 또한 js 코드에 따라서 랜더링 시키고 싶은 경우가 있습니다. 이런 경우 템플릿 엔진인 handlebars를 사용할 수 있습니다. (다른 템플릿 엔진을 사용해도 괜찮습니다.)
@@ -145,4 +149,57 @@ module: {
 const tempHtml = require('./pages/template.hbs');
 
 console.log(tempHtml());
+```
+
+### 플로그인
+
+로더는 파일 단위로 특정 유형의 모듈을 변환하는 데 사용되자만, 플러그인은 번들된 결과를 처리합니다. 번들된 결과물을 최적화, 환경 변수 주입 등과 같은 광범위한 작업을 수행합니다.
+
+플러그인을 사용하려면 `require ()`를 통해 플러그인을 요청하고 `plugins` 배열에 추가해야 합니다. 대부분의 플러그인은 옵션을 통해 사용자가 지정할 수 있습니다. 다른 목적으로 플러그인을 여러 번 사용하도록 설정할 수 있으므로 `new` 연산자로 호출하여 플러그인의 인스턴스를 만들어야 합니다.
+
+**HtmlWebpackPlugin**
+
+HtmlWebpackPlugin은 html 파일을 후처리하는데 사용합니다. HtmlWebpackPlugin 플러그인을 사용하여 빌드하면 html 파일로 아웃풋에 생성됩니다.
+
+**CleanWebpackPlugin**
+
+CleanWebpackPlugin은 빌드 이전에 결과물을 제거하는 플러그인입니다. 과거 파일이 남아 있을 수 있는 문제를 해결합니다.
+
+**MiniCssExtractPlugin**
+
+스타일시트가 점점 많아지면 하나의 자바스크립트 결과물로 만드는 것이 부담일 수 있습니다. 번들 결과에서 스트일시트 코드만 뽑아서 별도의 CSS 파일로 만들어 역할에 따라 파일을 분리하는 것이 좋습니다..
+
+```
+$ npm install -D html-webpack-plugin clean-webpack-plugin
+```
+
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+
+module.exports = {
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html', // output file name
+      template: 'index.html', // template file name
+      collapseWhitespace: true, // 빈칸 제거
+    	removeComments: true, // 주석 제거
+    }),
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
+    new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: ['dist'],
+    }),
+  ],
+```
+
+### Mode
+
+`mode` 파라미터를 `development`, `production` 또는 `none`으로 설정하면 webpack에 내장된 환경별 최적화를 활성화 할 수 있습니다. 기본값은 `production` 입니다. 환경 변수를 사용하여 production 모드와 development 모드를 변경하는 방식을 사용 할 수 있습니다.
+
+```js
+module.exports = {
+  mode: 'production',
+};
 ```

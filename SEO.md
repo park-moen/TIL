@@ -278,3 +278,11 @@ canonical URL을 지정하기 위해서는 HTML Header 영역에 canonical URL�
 ```html
 <link rel="canonical" href="https://example.com/" />
 ```
+
+<br/>
+
+## 참고자료
+
+- [구글 SEO 초보자 가이드](https://support.google.com/webmasters/answer/7451184?hl=ko)
+- [검색엔진 최적화를 위한 9가지 방법](https://blueshw.github.io/2020/06/14/seo/)
+- [검색엔진최적화는 무엇인가?](https://www.ascentkorea.com/what-is-seo/)

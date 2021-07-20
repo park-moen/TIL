@@ -162,7 +162,7 @@ robots.txt 파일을 위와 같이 설정하면, 규칙에 따라 googlebot은 /
 
 > 위에서 설명한 '고유하고 정확한 페이지 제목을 위해 title 태그 작성하기', 'description 메타 태그 사용하기', '제목 태그(h1, h2 ...)를 사용하여 중요한 텍스트 강조하기' 와 같은 SEO를 통틀어서 시멘틱 요소(Semantic Elements)를 적절하게 사용하는 방식을 세분한 내용입니다.
 >
-> 시멘틱 요소를 적절하게 사용하기 위해서는 위의 3가지 방법 외에도 의미를 가지지 않는 <div>, <span>으로만 HTML을 구성하지 않고 의미 있는 태그를 적절하게 사용하는 방식을 고수해야 합니다.
+> 시멘틱 요소를 적절하게 사용하기 위해서는 위의 3가지 방법 외에도 의미를 가지지 않는 `<div>`, `<span>`으로만 HTML을 구성하지 않고 의미 있는 태그를 적절하게 사용하는 방식을 고수해야 합니다.
 
 ```html
 {/* 시멘틱 요소를 적절하게 사용하지 않은 예시 */}
@@ -190,4 +190,91 @@ robots.txt 파일을 위와 같이 설정하면, 규칙에 따라 googlebot은 /
   	<p>First Group에 관련된 내용이 들어갑니다.</p>
   <main>
 </body>
+```
+
+<br/>
+
+### 구조화된 데이터 마크업 추가하기
+
+구조화된 데이터란 사이트 페이지에 추가할 수 있는 코드로, 검색엔진에 콘텐츠를 설명해주기 때문에 검색엔진이 페이지에 어떤 내용이 있는지 더 잘 이해할 수 있습니다.
+
+구조화된 데이터 마크업을 사용하면 결과를 표시하는 것 외에도, 관련성 있는 검색 결과를 추가 설명하는 방법을 제공합니다. 예를 들어 식당을 검색하게 되면 가격, 평점, 카테고리 정보 등이 노출된 부분을 볼 수 있는 페이즈를 볼 수 있습니다.
+
+<img src="https://user-images.githubusercontent.com/57402711/126251489-8b354512-ebc2-47f2-bdd5-240a8e8963e7.png" alt="image" style="zoom:40%;" />
+
+**구조회된 데이터를 작성하는 방법**
+
+구조회된 데이터 작업을 위해서는 schema.org에서 제공하는 타입(type)과 속성(property)값을 이용하여 제작할 수 있습니다. 구조화된 데이터 작업 시 Microdata와 RDFa, JSON-LD의 세 가지 언어 형식을 지원합니다
+
+```
+schema.org는 2011년 6월 2일 google, bing, yahoo 등 당시 검색 엔진 시장에서 점유율이 높은 운영자들이 모여 웹 페이지에서 구조화된 데이터 마크업을 웨한 공통 스키마 작성을 위한 schema.org를 발표했습니다.
+```
+
+- JSON_LD(권장): 페이지 헤드 또는 분문의 `<script>` 태그 내에 삽입되는 자바스크립트 표기입니다.
+
+```html
+// JSON-LD 형식
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Person",
+    "name": "My Site Name",
+    "url": "http://www.mysite.com",
+    "sameAs": [
+      "https://www.facebook.com/myfacebook",
+      "http://blog.naver.com/myblog",
+      "http://storefarm.naver.com/mystore"
+    ]
+  }
+</script>
+```
+
+- 마이크로데이터: HTML 콘텐츠 내에 구조화된 데이터를 사용되는 개방형 커뮤니티 HTML 사양입니다. RDFa와 같이 HTML 태그 속성을 사용해 구조화된 데이터를 표시하려는 속성의 이름을 지정합니다. 대개 페이지 본문에 사용되지만 헤드에 사용될 수 있습니다.
+
+```html
+<span itemscope="" itemtype="http://schema.org/Organization">
+  <link itemprop="url" href="http://www.mysite.com" />
+  <a itemprop="sameAs" href="https://www.facebook.com/myfacebook"></a>
+  <a itemprop="sameAs" href="http://blog.naver.com/myblog"></a>
+  <a itemprop="sameAs" href="http://storefarm.naver.com/mystore"></a>
+</span>
+```
+
+- RDFa: 사용자에게 표시되며 검색엔진에 제시하려는 콘텐츠에 해당하는 HTML 태그 속성을 도입하여 연결된 데이터를 지원하는 HTML 확장입니다.
+
+```html
+<p vocab="http://schema.org/">
+  My name is Manu Sporny and you can give me a ring via 1-800-555-0199.
+</p>
+```
+
+<br/>
+
+### 단순한 URL은 콘텐츠 정보를 전달하기
+
+웹사이트 문서와 관련된 설명을 제공하는 카테고리 및 파일 이름을 만들면 사이트를 더 잘 구성하는 데 도움이 될 뿐만 아니라 콘텐츠에 관심을 두고 있는 사용자가 좀 더 쉽게 사용할 수 있으며 이들에게 더욱 친숙한 URL을 만들 수 있습니다. 인식할 수 있는 단어가 거의 없는 긴 암호문과도 같은 URL에 겁을 먹는 사용자도 있을 수 있습니다.
+
+- **적절한 URL을 사용하기**
+
+  ```
+  // 사용자에게 혼란을 줄 수 있는 URL
+  https://github.com/park-moen/folder1/22447478/x2/14032015.html
+
+  // URL을 보고 바로 문맥을 이해할 수 있는 URL
+  https://github.com/park-moen/VanillaJS_fn/issues/new
+  ```
+
+- **canonical URL을 사용하여 대표 URL 지정하기**
+
+> - http://github.com/park-moen/aaa
+> - https://github.com/park-moen/aaa
+> - https://github.com/park-moen/b.html
+> - https://github.com/park-moen/b/word
+
+같은 페이지가 위처럼 여러 가지 URL을 가질 때, 검색엔진은 그중 하나를 표준으로 지정한다. 그리고 나머지는 표준 URL의 복사본으로 간주합니다. 하지만 내가 생각하는 표준 URL이 지정될지 안될지는 알 수 없기 때문에 canonical URL을 사용하여 표준 URL을 직접 지정해주는 것이 바람직합니다.
+
+canonical URL을 지정하기 위해서는 HTML Header 영역에 canonical URL을 넣으면 표준 URL을 지정할 수 있습니다.
+
+```html
+<link rel="canonical" href="https://example.com/" />
 ```

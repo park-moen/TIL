@@ -39,6 +39,8 @@ HTTP는 정보들을 전송하는 방식으로 HTTP/1.0 version이 나오기전�
 - REST: 분산 하이퍼미디어 시스템(예: 웹)을 위한 아키텍쳐 스타일이면서 동시에 아키텍쳐 스타일의 집합
 - 아키텍쳐 스타일: 제약조건들의 집합
 
+REST는 제약 조건의 집합을 의미하며 모든 제약조건을 지켜야 REST라고 지칭할 수 있는 점을 주의해야합니다. 그러기 위해서는 REST에서 사용하는 제약 조건에 대해서 알아보겠습니다.
+
 ### REST 구성하는 아키텍쳐 스타일
 
 1. **Client - Server 구조** : REST 서버는 API 제공, 클라이언트는 사용자 인증이나 컨텍스트(세션, 로그인 정보 등)을 직접 관리하는 구조로 각각의 역할이 확실히 구분되기 때문에 클라이언트와 서버에서 개발해야 할 내용이 명확해지고 서로간 의존성이 줄어들게 된다.
@@ -64,9 +66,58 @@ Uniform Interface의 제약 조건 중에서도 identification of resources와 m
 
 #### identification of resources
 
-resources가 URI로 식별되어야 합니다.
+- resources가 URI로 식별되어야 합니다.
+- 정확하게 말하면 리소스를 식별하는 방법이 동일해야 합니다. 대부분의 API는 URI로 resources를 식별하는 경우가 많습니다. 그렇기때문에 대부분의 API는 Uniform Interface의 제약 조건 중 첫번째 제약 조건을 쉽게 만족할 수 있습니다.
+
+<img src="https://user-images.githubusercontent.com/57402711/127167213-bf9085e2-298a-45cb-b219-214d92e4836c.png" alt="image" style="zoom:50%;" />![image](https://user-images.githubusercontent.com/57402711/127167376-97e9cf94-5c30-4f81-9554-fd0da1e3bb63.png)
+
+<img src="https://user-images.githubusercontent.com/57402711/127167213-bf9085e2-298a-45cb-b219-214d92e4836c.png" alt="image" style="zoom:50%;" />![image](https://user-images.githubusercontent.com/57402711/127167376-97e9cf94-5c30-4f81-9554-fd0da1e3bb63.png)
 
 #### manipulation of resources through representations
 
 - representations 전송을 통해서 resources를 조작해야 합니다.
 - resources를 만들거나 업데이트하고나 삭제하거나 할때 HTTP message에 표현을 담아서 전송을 해서 달성할 수 있어서 대체로 만족하고 있습니다.
+- 동일한 URI에서 동일한 자원의 표현을 둘 이상 지원할 수 있습니다.
+- representations의 형태는 content-type으로 결정합니다.
+
+#### **self-descriptive messages (자체 표현 구조)**
+
+**자기 서술적 메시지라는 의미로 각 메시지는 자신을 어떻게 처리해야 하는지 충분한 정보를 HTTP Method, Status Code, Header 등을 활용하여 전달 해야합니다.**
+
+```http
+GET / HTTP/1.1
+
+이 HTTP 요청 메시지는 목적지가 존제하지 않기때문에 self-descriptive가 아닙니다.
+```
+
+```http
+GET / HTTP/1.1
+Host: www.example.org
+
+목적지를 추가해서 self-descriptive 조건을 만족 시킬 수 있습니다.
+```
+
+```http
+HTTP/1.1 200 OK
+	[ { “op” : “remove”, “path” : “a/b/c"} ]
+
+이 부분을 해석하기 위해서는 Client가 이 응답을 받고 해석해야 하지만 이 정보가 어떤 문법으로 작성된것인지 알 수 없기때문에 self-descriptive가 아닙니다.
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+	[ { “op” : “remove”, “path” : “a/b/c"} ]
+
+Content-Type에 어떻게 문법을 해석할것인지를 알려주면 대갈호의 의미, 중갈호의 의미, 큰 따옴표의 의미 등을 Client가 문법에 맞게 파싱이 가능해지고 문법을 해석할 수 있게 만들어 줍니다.
+
+여기까지 작성하여도 self-descriptive의 조건을 만족하지 않습니다. 왜냐하면 op, path 와 같은 문자열로 보내는 데이터의 정확한 의미를 알 수 없기때문입니다.
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json + patch+json
+	[ { “op” : “remove”, “path” : “a/b/c"} ]
+
+patch+json은 media type으로 정의되어 있는 메시지로 JSON PATCH 명세를 찾아서 메시지를 해석할 수 있습니다. 이제는 self-descriptive 조건을 만족하고 있습니다.
+```

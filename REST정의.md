@@ -57,7 +57,6 @@ REST는 제약 조건의 집합을 의미하며 모든 제약조건을 지켜야
 4. **Uniform Interface(유니폼 인터페이스)** : HTTP 표준에만 따른다면, 안드로이드/IOS 플랫폼이든, 특정 언어나 기술에 종속되지 않고 모든 플랫폼에 사용이 가능하며, URI로 지정한 리소스에 대한 조작이 가능한 아키텍처 스타일을 의미한다.
 5. **계층형 구조** : API 서버는 순수 비지니스 로직을 수행하고, 그 앞단에 사용자 인증, 암호화(ssl), 로드밸런싱 등을 하는 계층을 추가하여 구조상의 유연상을 둘 수 있다. 이는 간단하게는 HA Proxy나 Apache의 Reverse Proxy를 통해, 더 나아가서는 API gateway 등을 활용하여 Micro Service Architecture로도 구현이 가능하게 한다.
 6. **code-on-demand(optional)**:
-7. **Self-descriptiveness (자체 표현 구조)** : 동사(Method) + 명사(URI) 로 이루어져있어 어떤 메서드에 무슨 행위를 하는지 알 수 있으며, 메시지 포맷 역시 JSON을 이용해서 직관적으로 이해가 가능한 구조로, REST API 메시지만 보고도 이를 쉽게 이해할 수 있다.
 
 _대체로 REST API라고 불리는 API들은 어느정도의 REST를 잘 지키고 있습니다. 그 이유로는 우리가 정보 전송을 위해 사용하는 HTTP의 규칙만 잘 지켜도 Client - Server, Stateless, Cacheable, layered system와 같은 대부분의 REST Design Architecture을 지킬 수 있기 때문입니다. Code-on-demand 같은 경우는 optional로 serverd에서 코드를 Client 보내서 실행할 수 있어야 하며 가장 유명한 예시는 JavaScript를 server에서 Client로 보내는 방식입니다._
 

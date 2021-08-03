@@ -6,7 +6,7 @@
 
 <br />
 
-> `a way provide interoperability between computer systems on the Internet.` (컴퓨터 시스템간의 상호 운영성을 제공하는 방법 중 하나)
+> `a way provide interoperability between computer systems on the Internet.` (컴퓨터 시스템간의 상호 운용성을 제공하는 방법 중 하나)
 
 <br />
 
@@ -184,8 +184,6 @@ JSON data 또한 Link 헤더를 사용하여 hyperLikn를 통해서 리스소와
 <br />
 
 ## 참고 자료
-
----
 
 [[REST API]REST를 사용할 때 주의해야할 점](https://sabarada.tistory.com/9)
 

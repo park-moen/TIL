@@ -3,6 +3,7 @@
 > 모든 SQL TIL은 [MySQLTUTORIAL](https://www.mysqltutorial.org/mysql-sample-database.aspx) 사이트에서 예제 데이터를 받아서 사용했습니다.
 
 <br>
+
 ### SELECT문 소개
 
 - `SELECT`문는 선택한 테이블에서 데이터를 추출하기 위한 `SQL`의 데이터 조작 언어(DML) 중 하나입니다.
@@ -15,6 +16,7 @@ SELECT column FROM table_name;
 ```
 
 <br>
+
 ### 테이블에서 모든 데이터 추출
 
 ```sql
@@ -32,6 +34,7 @@ SELECT * FROM employees;
 | 1076           | Firrelli  | Jeff      | x9273     | jfirrelli@classicmodelcars.com | 1          | 1002      | VP Marketing |
 
 <br>
+
 ### 특정 Column 데이터 추출
 
 ```sql
@@ -55,6 +58,7 @@ SQL은 대소문자를 구분하지 않아서 위의 두 예제는 동일한 아
 | Jeff      | Firrelli  |
 
 <br>
+
 ### ALL / DISTINCT절을 사용해서 데이터 추출
 
 - `ALL`: 테이블에 동일한 데이터가 있는 경우에도 모든 데이터를 반환합니다. 기본으로 `ALL`이 선택되어서 생략이 가능합니다.
@@ -91,6 +95,7 @@ SELECT DISTINCT lastName FROM employees;
 | Firrelli |
 
 <br>
+
 ### 여러 개의 Column에서 DISTINCT절 사용하기
 
 - 여러 개의 `Column` 추출하는 과정에서 `DISTINCT`를 사용하게 된다면서 선택된 모든 `Column`을 고려해서 중복을 제거합니다.
@@ -131,6 +136,7 @@ ORDER BY
 | x103      | Sales Rep |
 
 <br>
+
 ### LIMIT(TOP)절로 데이터 개수 지정
 
 - `LIMIT`절은 반환할 `Tuples(rows)`의 개수를 제한하기 위해 `SELECT`문에서 사용됩니다.
@@ -206,6 +212,7 @@ LIMIT 5;
 | 223            | Natürlich Autos            | 0.00        |
 
 <br>
+
 ### Reference
 
 - [MySQLTUTORIAL- MySQL SELECT](https://www.mysqltutorial.org/mysql-select-statement-query-data.aspx)

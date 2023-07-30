@@ -4,7 +4,7 @@
 
 <br>
 
-### SELECT문 소개
+## SELECT문 소개
 
 - `SELECT`문는 선택한 테이블에서 데이터를 추출하기 위한 `SQL`의 데이터 조작 언어(DML) 중 하나입니다.
 - `SELECT keyword(예약어)` 뒤에 하나 이상의 `Column(attribute, field)`을 지정할 수 있습니다.
@@ -17,7 +17,7 @@ SELECT column FROM table_name;
 
 <br>
 
-### 테이블에서 모든 데이터 추출
+## 테이블에서 모든 데이터 추출
 
 ```sql
 SELECT * FROM table_name;
@@ -35,7 +35,7 @@ SELECT * FROM employees;
 
 <br>
 
-### 특정 Column 데이터 추출
+## 특정 Column 데이터 추출
 
 ```sql
 SELECT column1, column2, column... FROM table_name;
@@ -59,7 +59,7 @@ SQL은 대소문자를 구분하지 않아서 위의 두 예제는 동일한 아
 
 <br>
 
-### ALL / DISTINCT절을 사용해서 데이터 추출
+## ALL / DISTINCT절을 사용해서 데이터 추출
 
 - `ALL`: 테이블에 동일한 데이터가 있는 경우에도 모든 데이터를 반환합니다. 기본으로 `ALL`이 선택되어서 생략이 가능합니다.
 - `DISTINCT(UNIQUE)`: 테이블에 동일한 데이터가 있는 경우 중복을 제거한 1개만을 반환합니다.
@@ -96,7 +96,7 @@ SELECT DISTINCT lastName FROM employees;
 
 <br>
 
-### 여러 개의 Column에서 DISTINCT절 사용하기
+## 여러 개의 Column에서 DISTINCT절 사용하기
 
 - 여러 개의 `Column` 추출하는 과정에서 `DISTINCT`를 사용하게 된다면서 선택된 모든 `Column`을 고려해서 중복을 제거합니다.
 - 중복이 발생하지 않는 `Column`에서 사용하면 불필요한 리소스가 발생해서 성능적으로 문제가 발생할 수 있습니다.
@@ -137,7 +137,7 @@ ORDER BY
 
 <br>
 
-### LIMIT(TOP)절로 데이터 개수 지정
+## LIMIT(TOP)절로 데이터 개수 지정
 
 - `LIMIT`절은 반환할 `Tuples(rows)`의 개수를 제한하기 위해 `SELECT`문에서 사용됩니다.
 - `MYSQL`에서는 `TOP` 문법을 지원하지 않고 `LIMIT` 문법을 사용해서 개수를 제한합니다. `MSSQL`과 같은 `RDBMS`에서는 TOP 문법을 사용할 수 있습니다.
@@ -213,7 +213,7 @@ LIMIT 5;
 
 <br>
 
-### Reference
+## Reference
 
 - [MySQLTUTORIAL- MySQL SELECT](https://www.mysqltutorial.org/mysql-select-statement-query-data.aspx)
 - [MySQLTUTORIAL- MySQL DISTINCT](https://www.mysqltutorial.org/mysql-distinct.aspx)

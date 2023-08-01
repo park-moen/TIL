@@ -250,8 +250,8 @@ WHERE
 - 아래 예제에서 `jobTitle`이 `Sales Rep`이 아닌 결과룰 반환합니다. 즉, `JobTitle = Sales Rep`이 `false`입니다.
 - `NOT` 연산자는 `WHERE`절과 선택한 `Column`의 사이에 위치해야 합니다.
 
-````sql
-S`ELECT
+```sql
+SELECT
   lastName, firstName, jobTitle, officeCode
 FROM
   employees
@@ -267,4 +267,3 @@ WHERE
 | Patterson | William   | Sales Manager (APAC) | 6          |
 | Bondur    | Gerard    | Sale Manager (EMEA)  | 4          |
 | Bow       | Anthony   | Sales Manager (NA)   | 1          |
-````

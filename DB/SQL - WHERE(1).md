@@ -245,6 +245,83 @@ WHERE
 | Kato      | Yoshimi   | Sales Rep | 5          |
 | Gerard    | Martin    | Sales Rep | 4          |
 
+> NOTE: `AND`, `OR` 연산자 사용시 주의 사항으로는 동일한 `Column`에서 다른 조건을 사용하고 싶은 경우 각 조건마다 `Column`을 작성해줘야 합니다.
+
+```sql
+# 올바르지 못한 Query문
+SELECT
+  firstName, lastName, jobTitle, officeCode
+FROM
+  employees
+WHERE
+  officeCode = 1 OR 2;
+```
+
+| firstName | lastName  | jobTitle             | officeCode |
+| --------- | --------- | -------------------- | ---------- |
+| Diane     | Murphy    | President            | 1          |
+| Mary      | Patterson | VP Sales             | 1          |
+| Jeff      | Firrelli  | VP Marketing         | 1          |
+| William   | Patterson | Sales Manager (APAC) | 6          |
+| Gerard    | Bondur    | Sale Manager (EMEA)  | 4          |
+| Anthony   | Bow       | Sales Manager (NA)   | 1          |
+| Leslie    | Jennings  | Sales Rep            | 1          |
+| Leslie    | Thompson  | Sales Rep            | 1          |
+| Julie     | Firrelli  | Sales Rep            | 2          |
+| Loui      | Bondur    | Sales Rep            | 4          |
+| Gerard    | Hernandez | Sales Rep            | 4          |
+| Pamela    | Castillo  | Sales Rep            | 4          |
+| Larry     | Bott      | Sales Rep            | 7          |
+| Barry     | Jones     | Sales Rep            | 7          |
+| Andy      | Fixter    | Sales Rep            | 6          |
+
+- 만약 `OR` 연산자에서는 `officeCode`가 1 또는 2인 경우의 결과를 반환하고 싶었지만 조건을 무시하고 모든 결과를 반환하는 문제가 발생합니다.
+
+```sql
+# 올바른 Query문
+SELECT
+  firstName, lastName, jobTitle, officeCode
+FROM
+  employees
+WHERE
+  officeCode = 1 OR
+  officeCode = 2;
+```
+
+| firstName | lastName  | jobTitle           | officeCode |
+| --------- | --------- | ------------------ | ---------- |
+| Diane     | Murphy    | President          | 1          |
+| Mary      | Patterson | VP Sales           | 1          |
+| Jeff      | Firrelli  | VP Marketing       | 1          |
+| Anthony   | Bow       | Sales Manager (NA) | 1          |
+| Leslie    | Jennings  | Sales Rep          | 1          |
+| Leslie    | Thompson  | Sales Rep          | 1          |
+| Julie     | Firrelli  | Sales Rep          | 2          |
+| Steve     | Patterson | Sales Rep          | 2          |
+
+- `OR` 연산자에서는 `officeCode`가 1 또는 2인 경우의 결과를 반환하고 싶다면 동일한 `Column`이라도 조건마다 `Column`을 따로 작성해줘야 합니다.
+- `AND` 연산자에서 조건마다 `Column`을 작성하지 않을 경우에는 첫 조건만을 만족하는 결과를 반환합니다.
+
+```sql
+# 올바르지 못한 Query
+SELECT
+  firstName, lastName, jobTitle, officeCode
+FROM
+  employees
+WHERE
+  officeCode = 1 AND
+  officeCode = 2;
+```
+
+| firstName | lastName  | jobTitle           | officeCode |
+| --------- | --------- | ------------------ | ---------- |
+| Diane     | Murphy    | President          | 1          |
+| Mary      | Patterson | VP Sales           | 1          |
+| Jeff      | Firrelli  | VP Marketing       | 1          |
+| Anthony   | Bow       | Sales Manager (NA) | 1          |
+| Leslie    | Jennings  | Sales Rep          | 1          |
+| Leslie    | Thompson  | Sales Rep          | 1          |
+
 #### WHERE절에 NOT 연산자 사용
 
 - 아래 예제에서 `jobTitle`이 `Sales Rep`이 아닌 결과룰 반환합니다. 즉, `JobTitle = Sales Rep`이 `false`입니다.
@@ -267,3 +344,72 @@ WHERE
 | Patterson | William   | Sales Manager (APAC) | 6          |
 | Bondur    | Gerard    | Sale Manager (EMEA)  | 4          |
 | Bow       | Anthony   | Sales Manager (NA)   | 1          |
+
+#### 논리 연산자 조합
+
+- `WHERE`절에 다양한 조건을 주기 위해 `AND, OR, NOT`을 조합할 수 있습니다.
+- 논리 연산자 우선순위를 정확히 지정하지 않으면 예측할 수 없는 결과를 반환합니다.
+- 이런 문제를 해결하기 위해서 우선순위가 가장 높은 `()`를 사용해서 예측할 수 있는 결과를 반환받는 방법을 선택할 수 있습니다.
+
+| 우선순위 | 연산자                                                              |
+| -------- | ------------------------------------------------------------------- |
+| 1        | 괄호( )                                                             |
+| 2        | NOT 연산자                                                          |
+| 3        | 비교 연산자, BETWEEN 연산자, IN 연산자, Like 연산자, IS NULL 연산자 |
+| 4        | AND 연산자                                                          |
+| 5        | OR 연산자                                                           |
+
+```sql
+SELECT
+  firstName, lastName, jobTitle, officeCode
+FROM
+  employees
+WHERE
+  jobTitle = "Sales Rep" AND
+  officeCode = 1 OR
+  officeCode = 4;
+```
+
+| firstname | lastname  | jobtitle            | officeCode |
+| --------- | --------- | ------------------- | ---------- |
+| Gerard    | Bondur    | Sale Manager (EMEA) | 4          |
+| Leslie    | Jennings  | Sales Rep           | 1          |
+| Leslie    | Thompson  | Sales Rep           | 1          |
+| Loui      | Bondur    | Sales Rep           | 4          |
+| Gerard    | Hernandez | Sales Rep           | 4          |
+| Pamela    | Castillo  | Sales Rep           | 4          |
+| Martin    | Gerard    | Sales Rep           | 4          |
+
+- **원하는 결과**: `jobTitle`이 `Sales Rep`이면서 `officeCode`가 1이거나 `jobTitle`이 `Sales Rep`이면서 `officeCode`가 2인 `tuple(row, record)`
+- **실제 반환하는 결과**: `jobTitle`이 `Sales Rep`이면서 `officeCode`가 1이거나 `officeCode`가 2인 `tuple(row, record)`
+- **원인**: `AND` 연산자 우선순위가 `OR` 연산자 우선순위보다 높아서 실제 `Query`는 `WHERE (jobTitle = "Sales Rep" AND officeCode = 1) OR officeCode = 4;`처럼 동작해서 원하는 결과를 받아오지 못했습니다.
+
+```sql
+SELECT
+  firstName, lastName, jobTitle, officeCode
+FROM
+  employees
+WHERE
+  jobTitle = "Sales Rep" AND
+  (officeCode = 1 OR officeCode = 4);
+```
+
+| firstName | lastName  | jobTitle  | officeCode |
+| --------- | --------- | --------- | ---------- |
+| Leslie    | Jennings  | Sales Rep | 1          |
+| Leslie    | Thompson  | Sales Rep | 1          |
+| Loui      | Bondur    | Sales Rep | 4          |
+| Gerard    | Hernandez | Sales Rep | 4          |
+| Pamela    | Castillo  | Sales Rep | 4          |
+| Martin    | Gerard    | Sales Rep | 4          |
+
+- `OR` 연산자의 우선순위의 `AND` 연산자 우선순위보다 높이기 위한 해결책으로는 우선순위가 가장 높은 괄호`()`를 사용할 수 있습니다.
+
+<br>
+
+## Reference
+
+- [MySQLTUTORIAL - MySQL WHERE](https://www.mysqltutorial.org/mysql-where/)
+- [DATA ON AIR - WHERE절](https://dataonair.or.kr/db-tech-reference/d-guide/sql/?pageid=2&mod=document&kboard_search_option%5Btree_category_1%5D%5Bkey%5D=tree_category_1&kboard_search_option%5Btree_category_1%5D%5Bvalue%5D=SQL+%EA%B8%B0%EB%B3%B8+%EB%B0%8F+%ED%99%9C%EC%9A%A9&uid=341)
+- [tutorialspoint - WHERE Clause](https://www.tutorialspoint.com/mysql/mysql-where-clause.htm)
+- [young's develog - 조건 조합하기](https://lxxjn0-dev.netlify.app/first-step-sql-lec-06)

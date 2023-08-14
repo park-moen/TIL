@@ -29,14 +29,14 @@ RIGHT JOIN left_table_name ON
 - `LEFT JOIN`절은 `FROM`절의 테이블을 왼쪽 테이블이고 `LEFT JOIN`절의 테이블을 오른쪽 테이블로 지정합니다.
 - `LEFT JOIN`절에서 `JOIN` 조건(`ON, USING`)이 `FALSE`로 평가되는 경우 왼쪽 테이블의 `tuple`의 결과는 반환하지만 오른쪽 테이블의 `tuple`은 `NUll`값을 반환합니다.
 - 즉, `LEFT JOIN`절은 `JOIN` 조건에 관계없이 왼쪽 테이블의 선택된 모든 `tuple`을 반환합니다.
-- `LEFT`절에서 `NUll`값을 포함하지 않은 결과를 반환하고 싶다면 `WHERE column_name IS NULL` 조건을 사용할 수 있습니다.
-- `LEFT`절의 벤 다이어그램은 아래 사진과 동일합니다.
+- `LEFT JOIN`절에서 `NUll`값을 포함하지 않은 결과를 반환하고 싶다면 `WHERE column_name IS NULL` 조건을 사용할 수 있습니다.
+- `LEFT JOIN`절의 벤 다이어그램은 아래 사진과 동일합니다.
 
 <img src="https://github.com/park-moen/TIL/assets/57402711/45e8fdbf-698a-4a2e-ac10-34785ee2a1a0" width="30%" />
 
 <br>
 
-## SELECT문에서 LEFT JOIN 사용하기
+## SELECT문에서 LEFT JOIN절 사용하기
 
 ### 2개의 테이블에서 `LEFT JOIN`절을 사용하기
 
@@ -71,7 +71,7 @@ LEFT JOIN orders o USING(customerNumber);
 - `ON o.customerNumber = c.customerNumber` 조건이 `FALSE`로 평가되면 `orders` 테이블의 `tuple(orderNumber, status)`운 `NULL` 값을 반환합니다.
 - `JOIN` 조건인 `ON`절을 `USING`절로 바꿔서 사용할 수 있습니다.
 
-### 일치하지 않는 결과 반환하기
+### 일치하지 않는 결과 반환하기(EXCLUSIVE JOIN)
 
 - `LEFT/RIGHT JOIN`절에서 다른 테이블에서 일치하지 않는 행을 찾으려는 경우에 매우 유용합니다.
 - 아래 그림처럼 결과를 반환하기 위해서는 `IS NULL` 연산자를 사용해서 원하는 결과를 반환할 수 있습니다.

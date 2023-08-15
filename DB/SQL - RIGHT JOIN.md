@@ -1,5 +1,7 @@
 # [SQL] 내가 사용하기 위해 공부하는 RIGHT JOIN
 
+<br>
+
 ## RIGHT JOIN절 소개
 
 - `RIGHT JOIN`절은 `LEFT JOIN`절과 유사한 문법을 따르지만, 테이블의 위치가 반대입니다.
@@ -20,6 +22,8 @@ RIGHT JOIN right_table_name ON
 - `RIGHT JOIN`절의 벤 다이어그램은 아래 사진과 동일합니다.
 
 <img src="https://github.com/park-moen/TIL/assets/57402711/ecf4f16a-06cd-4386-8a4a-f780e353c412" width="30%" />
+
+<br>
 
 ## SELECT문에서 RIGHT JOIN 사용하기
 
@@ -42,3 +46,9 @@ ORDER BY
 - `customers`테이블의 `salesRepEmployeeNumber Column`은 employees 테이블의 `employeeNumber Column`에 연결됩니다.
 - `employees` 테이블이 오른쪽 테이블로 `JOIN` 조건과 관계없이 선택된 `Column(employeeNumber Column)`의 `tuple` 결과를 반환합니다.
 - `customers` 테이블은 왼쪽 테이블로 `JOIN` 조건이 `FALSE`로 평가된다면 선택된 `Column(customerNumber Column)`은 `NULL` 값을 반환합니다.
+
+<br>
+
+## Reference
+
+- [MySQLTUTORIAL - MySQL RIGHT JOIN](https://www.mysqltutorial.org/mysql-right-join/)
